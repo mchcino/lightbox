@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+body {
+  font-family: "Bebas Neue", sans-serif;
+  background: #333;
+  font-size: 1.125rem;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container h1 {
+  text-transform: uppercase;
+  font-size: 4.5rem;
+  text-shadow: 4px 4px 1px black;
+  margin: 50px;
+  color: white;
+  text-align: center;
+}
+
+.container .content {
+  width: 700px;
+  background: #222;
+  padding: 30px 0;
+  border-radius: 7px;
+  box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.75);
+}
+
+.container .content ul {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.container .content ul li {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .content ul li a {
+  display: inline-block;
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 5px solid #555;
+  overflow: hidden;
+}
+
+.container .content ul li a img {
+  width: 100%;
+  height: 100%;
+}
+
+.container .content ul li a .thumbs-name {
+  width: 100%;
+  height: 100%;
+  background: rgba(221, 221, 221, 0.3);
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: 300ms ease;
+  transform: rotate(0) scale(0);
+}
+
+.container .content ul li a .thumbs-name h2 {
+  text-decoration: none;
+  text-align: center;
+  color: black;
+  text-shadow: 1px 1px 3px white;
+}
+
+.container .content ul li a:hover .thumbs-name {
+  opacity: 1;
+  transform: rotate(360deg) scale(1);
+}
+
+.container .content ul li .overlay {
+  /* penggunaan lebar dan tinggi overlay nya menggunakan top, left, bottom, right 0 dan tidak menggunakan vw atau vh karena untuk menjaga transisi tidak dari arah manapun. Menggunakan top, left, bottom, right 0 untuk lebar dan tingginya, karena sifat elemen nya saling tarik-menarik jika diberi teknik itu. */
+  /* transisi harus ada nilai awal dan nilai akhir agar transisi bekerja. */
+  width: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  background: rgba(0, 0, 0, 0);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.8s ease;
+}
+
+.container .content ul li .overlay:target {
+  background: rgba(0, 0, 0, 0.7);
+  width: auto;
+  height: auto;
+}
+
+.container .content ul li .overlay .wrapper-content {
+  transform: scale(0);
+  height: 100vh;
+  padding: 100px 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.container .content ul li .overlay:target .wrapper-content {
+  transform: scale(1);
+  display: flex;
+  justify-content: center;
+}
+
+.container .content ul li .overlay .wrapper-content img {
+  max-height: 100%;
+  border: 2px solid white;
+  border-radius: 7px;
+  box-shadow: 3px 3px 10px  black;
+}
+
+.container .content ul li .overlay:target .wrapper-content img {
+  /* overlay:target img. Artinya saat overlay sudah ditargetkan atau sudah di klik oleh user, akan memberi animasi fadeInOut kepada img. */
+  /* Kenapa tidak diberi pada class (.overlay img) langsung saja? Karena jika diberi disitu, animasi hanya akan berjalan sekali saja saat halaman web dibuka tanpa trigger apapun. Tujuan diberi pada pseudo :target yaitu agar animasi hanya berjalan saat elemen di target/di buka oleh user saja. */
+  animation: fadeInOut 0.8s ease;
+}
+
+.container .content ul li .overlay .wrapper-content .next {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  height: auto;
+  border-radius: 0%;
+  border: none;
+  overflow: none;
+  color: white;
+  transform: scale(3);
+  right: -20%;
+  opacity: 0;
+}
+
+.container .content ul li .overlay .wrapper-content .previous {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  height: auto;
+  border-radius: 0%;
+  border: none;
+  overflow: none;
+  color: white;
+  transform: scale(3);
+  left: -20%;
+  opacity: 0;
+}
+
+.container .content ul li .overlay:target .wrapper-content .previous, 
+.container .content ul li .overlay:target .wrapper-content .next {
+  animation: fade 0.8s ease 0.3s forwards;
+}
+
+.container .content ul li .overlay .wrapper-content p {
+  position: absolute;
+  left: 0;
+  bottom: 7%;
+  line-height: 1.5em;
+  color: white;
+  font-size: 1rem;
+  font-weight: 100;
+  opacity: 0;
+  text-shadow: 2px 2px 1px black;
+}
+
+.container .content ul li .overlay:target .wrapper-content p {
+  animation: slideUpFade 0.8s ease 0.3s forwards;
+}
+
+.container .content ul li .overlay .wrapper-content .close {
+  transform: scale(1.5);
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  height: auto;
+  border: none;
+  border-radius: 0%;
+  color: white;
+  padding: 0 10px 10px 10px;
+  right: 0;
+  bottom: 7%;
+  opacity: 0;
+}
+
+.container .content ul li .overlay:target .wrapper-content .close {
+  animation: slideUpFade 0.8s ease 0.3s forwards;
+}
+
+
+
+
+
+/* Animasi */
+@keyframes fadeInOut {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    bottom: -1%;
+  }
+
+  100% {
+    opacity: 1;
+    bottom: 7%;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
